@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Presentation</title>
+
+    <meta name="description" content="Presentation">
+    <meta name="author" content="nmmedia.ru">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Accelerator - REMOVE THIS IF USING BUILD
+    <link rel="stylesheet" href="accelerator/css/styles.css">-->
+
+    <!-- Presentation build - BUILD FILE -->
+    <link rel="stylesheet" href="build/presentation/styles.css">
+  </head>
+
+  <body>
+
+    <div id="presentation" class="accelerator">
+      <!--<nav data-module="ag-auto-menu"></nav>-->
+      <nav data-module="ag-menu" id="main_menu">
+        @@menu
+      </nav>
+
+      <section id="slideshows" class="slideshows slides"></section>
+
+      <div data-module="ag-nav-controls"></div>
+      <div data-module="ag-slide-analytics"></div>
+
+      <div id="thumbs" class="thumbs">
+          <ul id="thumbnails" class="thumbnails" data-module="thumbnails"></ul>
+      </div>
+      <div id="ag-viewer" data-module="ag-viewer"></div>
+      <div class="pause-overlay"></div>
+    </div>
+
+    <!-- Agnitio Content API -->
+   <!-- <script src="../viewer/js/agnitio.js"></script>-->
+
+    <!-- Accelerator - REMOVE THESE IF USING BUILD-->
+     <script src="accelerator/lib/head.min.js"></script>
+     <script src="accelerator/js/init.js"></script>
+
+   <!-- Presentation build - BUILD FILE -->
+   <!--<script src="build/presentation/scripts.js"></script>-->
+
+  <script>
+      
+  </script>
+
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <article id="@@slidename" class="slide">
+
+        <div class="bg bg_@@slidenum"></div>
+
+        @@if(popups) {
+            @@for(var i = 1; i <= popups; i++) {
+                <div class="popup-btn popup-btn-@@slidenum-`+i+`" data-target="popup-@@slidenum-`+i+`"></div>
+            }
+            @@for(var i = 1; i <= popups; i++) {
+                <div class="popup popup-@@slidenum-`+i+` popup_hidden">
+                    <div class="popup__close-btn"></div>
+
+                    <img class="img" src="assets/@@slidenum__popup-`+i+`.png">
+                </div>
+            }
+        }
+
+        @@if(tabs) {
+            @@for(var i = 1; i <= tabs; i++) {
+                <div class="tab tab-@@slidenum-`+i+` tab_hidden">
+                    <img class="img" src="assets/@@slidenum__tab-`+i+`.png">
+                </div>
+            }
+            @@for(var i = 1; i <= tabs; i++) {
+                <div class="tab-btn tab-btn-@@slidenum-`+i+`" data-target="tab-@@slidenum-`+i+`"></div>
+            }
+        }
+
+        @@if(popups) {
+            <div class="popup popup-wrap popup_hidden"></div>
+        }
+
+    </article>
+</body>
+</html>

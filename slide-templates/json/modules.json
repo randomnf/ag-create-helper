@@ -1,0 +1,111 @@
+{
+    "ag-slide-analytics": {
+        "name": "Agnitio Slide Analytics",
+        "description": "Save data about the slides visited. Will call ag.submit.slide(data).",
+        "type": "global",
+        "files": {
+            "scripts": [
+                "modules/ag-slide-analytics/ag-slide-analytics.js"
+            ]
+        },
+        "version": "0.7.0"
+    },
+    "ag-menu": {
+        "name": "Agnitio Menu",
+        "description": "Menu with manually defined links.",
+        "files": {
+            "styles": [
+                "modules/ag-menu/ag-menu.css",
+                "templates/ipad/custom.css"
+            ],
+            "scripts": [
+                "modules/ag-menu/ag-menu.js",
+                "templates/ipad/custom.js"
+            ]
+        },
+        "version": "0.9.0"
+    },
+    "ag-viewer": {
+        "id": "ag-viewer",
+        "files": {
+            "scripts": [
+                "modules/ag-viewer/ag-viewer.js"
+            ],
+            "styles": [
+                "modules/ag-viewer/ag-viewer.css"
+            ]
+        }
+    },
+    "ag-video": {
+        "name": "Agnitio Video Module",
+        "description": "Wrapper for HTML5 video tag to add states and custom controls",
+        "type": "content",
+        "files": {
+            "templates": [
+                "modules/ag-video/ag-video.html"
+            ],
+            "styles": [
+                "modules/ag-video/ag-video.css"
+            ],
+            "scripts": [
+                "modules/ag-video/ag-video.js"
+            ]
+        },
+        "version": "0.9.7"
+    },
+    "ag-slide-popup": {
+        "files": {
+            "scripts": [
+                "modules/ag-slide-popup/ag-slide-popup.js"
+            ],
+            "styles": [
+                "modules/ag-slide-popup/ag-slide-popup.css"
+            ]
+        }
+    },
+    "ag-references": {
+        "id": "ag-references",
+        "files": {
+            "templates": [
+                "modules/ag-references/ag-references.html"
+            ],
+            "scripts": [
+                "modules/ag-references/ag-references.js"
+            ],
+            "styles": [
+                "modules/ag-references/ag-references.css"
+            ]
+        }
+    },
+    "ag-custom-story": {
+        "name": "Agnitio Custom Story Builder",
+        "description": "Allow presenter to build custom stories in the presentation.",
+        "type": "global",
+        "files": {
+            "templates": [
+                "modules/ag-custom-story/ag-custom-story.html"
+            ],
+            "styles": [
+                "modules/ag-custom-story/ag-custom-story.css"
+            ],
+            "scripts": [
+                "modules/ag-custom-story/ag-custom-story.js"
+            ]
+        },
+        "version": "2.4.0"
+    },
+    "thumbnails": {
+        "name": "Agnitio Thumbnails",
+        "description": "This module will automatically create a menu bar with thumbnails",
+        "type": "global",
+        "files": {
+            "styles": [
+                "modules/thumbnails/thumbnails.css"
+            ],
+            "scripts": [
+                "modules/thumbnails/thumbnails.js"
+            ]
+        },
+        "version": "2.4.0"
+    }
+}

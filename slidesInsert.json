@@ -1,0 +1,46 @@
+{
+    "commonConfig": {
+        "slideNamePrefix": "slide-",
+        "slideNamePostfix": "--ocrevus",
+        "slideNumStart": 30,
+        "slideNumStep": 5,
+        "slideNumLen": 3
+    },
+
+    "sections": {
+        "visit": {
+            "title": "Some new slide",
+            "slides": [
+                {
+                    "customID": "email",
+                    "content": {
+                        "popups": 2
+                    },
+                    "title": "newSlide1",
+                    "slideDesc": "desc for stat 1"
+                },
+                {
+                    "title": "newSlide2",
+                    "slideDesc": "desc for stat 2"
+                }
+            ]
+        },
+        "new-branch": {
+            "title": "Some brand new branch",
+            "slides": [
+                {
+                    "customID": "custom-id",
+                    "title": "title1",
+                    "slideDesc": "brand new desc"
+                },
+                {
+                    "content": {
+                        "popups": 1
+                    },
+                    "title": "title2",
+                    "slideDesc": "brand new desc 2"
+                }
+            ]
+        }
+    }
+}

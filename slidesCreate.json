@@ -1,0 +1,46 @@
+{
+    "commonConfig": {
+        "slideNamePrefix": "slide-",
+        "slideNamePostfix": "--product",
+        "slideNumStart": 5,
+        "slideNumStep": 5,
+        "slideNumLen": 3,
+
+        "generateMenu": true
+    },
+
+    "sections": {
+        "visit": {
+            "title": "Визит",
+            "slides": [
+                {
+                    "customID": "email",
+                    "content": {
+                        "popups": 2
+                    },
+                    "title": "slide1",
+                    "slideDesc": "Some description for a slide for statistics"
+                },
+                {
+                    "content": {
+                        "tabs": 3
+                    },
+                    "title": "slide2",
+                    "slideDesc": "Some another description for a slide for statistics"
+                }
+            ]
+        },
+        "additional": {
+            "title": "Дополнительно",
+            "slides": [
+                {
+                    "title": "someSlideName2"
+                }
+            ]
+        },
+        "patients": {
+            "title": "Профиль пациента",
+            "slides": 3
+        }
+    }
+}

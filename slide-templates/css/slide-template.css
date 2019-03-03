@@ -1,0 +1,45 @@
+.bg_@@slidenum {
+    background-image: url(assets/@@slidenum.png);
+}
+
+@@if(popups) { @@for(var i = 1; i <= popups; i++) {
+.popup-btn-@@slidenum-`+i+` {
+    top: 100px;
+    left: 100px;
+
+    width: 60px;
+    height: 60px;
+
+    background-color: #000;opacity: 0.5;
+}}}
+
+@@if(popups) { @@for(var i = 1; i <= popups; i++) {
+.popup-@@slidenum-`+i+` {
+    top: 100px;
+    left: 100px;
+
+    width: 600px;
+
+    background-color: #000;opacity: 0.5;
+}}}
+
+@@if(tabs) { @@for(var i = 1; i <= tabs; i++) {
+.tab-btn-@@slidenum-`+i+` {
+    top: 100px;
+    left: 100px;
+
+    width: 150px;
+    height: 50px;
+
+    background-color: #000;opacity: 0.5;
+}}}
+
+@@if(tabs) { @@for(var i = 1; i <= tabs; i++) {
+.tab-@@slidenum-`+i+` {
+    top: 100px;
+    left: 100px;
+
+    width: 600px;
+
+    background-color: #000;opacity: 0.5;
+}}}
