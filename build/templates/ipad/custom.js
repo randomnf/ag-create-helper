@@ -1,36 +1,75 @@
-function enterEventHandler(el)
+$(function() {
+    // some presentation-specific fns here
+});
+
+function enterEventHanlder(el)
 {
-    menuHL(el.id);
+    menuHighlightHandler(el.id);
 
-    var $el = $(el);
+    var $el = $(el),
+        $popupBtns = $el.find(".popup-btn"),
+        $popupCloseBtns = $el.find(".popup__close-btn");
 
-    $el.find(".popup-btn").on("tap", popupOpenHanlder);
-    $el.find(".popup__close-btn").on("tap", popupCloseHanlder);
+    $popupBtns.on("tap", popupOpenHandler);
+    $popupCloseBtns.on("tap", popupCloseHandler);
 
-    $el.find(".tab-btn").on("tap", tabHanlder);
+    var $pdfLinks = $el.find(".pdf-link");
+
+    $pdfLinks.on("tap", pdfOpenHanlder);
 }
 
-function exitEventHandler(el)
+function exitEventHanlder(el)
 {
-    var $el = $(el);
+    var $el = $(el),
+        $popupBtns = $el.find(".popup-btn"),
+        $popupCloseBtns = $el.find(".popup__close-btn");
 
-    $el.find(".popup-btn").off("tap", popupOpenHanlder);
-    $el.find(".popup__close-btn").off("tap", popupCloseHanlder);
+    $popupBtns.off("tap", popupOpenHandler);
+    $popupCloseBtns.off("tap", popupCloseHandler);
 
-    $el.find(".tab-btn").off("tap", tabHanlder);
+    var $pdfLinks = $el.find(".pdf-link");
+
+    $pdfLinks.off("tap", pdfOpenHanlder);
 
     closeAllPopups($el);
-    resetTabs($el);
+}
+
+function popupOpenHandler(e)
+{
+    if(e)
+    {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    var data_popup = $(this).data('target');
+    $('.popup.' + data_popup).removeClass('popup_hidden');
+}
+
+function popupCloseHandler(e)
+{
+    if(e)
+    {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    var $popup = $(this).parent();
+    $popup.addClass('popup_hidden');
+}
+
+function closeAllPopups($el)
+{
+    $el.find(".popup").addClass("popup_hidden");
 }
 
 /*
     переход между слайдами
 
     html:
-    <div class="js-menu-link ..." data-to="visit"></div>
+    <a class="js-menu-link ..." data-to="visit"></a>
 
     js:
-    $(".js-menu-link").off("click", navigationHandler);
     $(".js-menu-link").on("click", navigationHandler);
 */
 function navigationHandler(e)
@@ -42,23 +81,75 @@ function navigationHandler(e)
     }
 
     var menu = {
-        /* главное меню */
-        "visit":            "section1/ipad-02-sl",
-        "additional":       "section2/ipad-02-sl",
-        "pprs":             "",
-        "rrs":              "",
-        "comp-pitrs":       "",
+        "home":             "home/slide-010--product",
+        "visit":            "visit/slide-020--product",
+        "additional":       "additional/slide-040--product",
     };
 
     var link = $(this).data("to"),
         target = "";
 
-    if( link && (link in menu) ) {
+    if( link && (link in menu) ) 
+    {
         target = menu[link];
     }
 
-    if( target !== "" && target !== null) {
-        console.log("data-to = '" + link + "'; to slide = '" + target + "';");
+    if( target !== "" && target !== null)
+    {
+        // console.log("data-to = '" + link + "'; to slide = '" + target + "';");
+
         app.goTo(target);
+    }
+}
+
+/**
+ * Highlights menu link respective to current Slide ID
+ * 
+ * @param {String} slideID Slide ID in "section/slide" format returned by app.getPath()
+ */
+function menuHighlightHandler(slideID)
+{
+    // console.log("menuHighlightHandler fn; slideID = '" + slideID + "'");
+
+    var btnToHLClass = "";
+    switch(slideID)
+    {
+        case "slide-010--product":
+        btnToHLClass = ".menu-custom__btn_t_home";
+        break;
+        case "slide-020--product":
+        case "slide-030--product":
+            btnToHLClass = ".menu-custom__btn_t_visit";
+            break;
+        case "slide-040--product":
+        case "slide-050--product":
+        case "slide-060--product":
+        case "slide-070--product":
+            btnToHLClass = ".menu-custom__btn_t_additional";
+            break;
+        default:
+            break;
+    }
+
+    $(".menu-custom__btn").removeClass("menu-custom__btn_active");
+    if(btnToHLClass !== "")
+    {
+        $(btnToHLClass).addClass("menu-custom__btn_active");
+    }
+}
+
+function pdfOpenHanlder(e)
+{
+    if(e)
+    {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    var pdf = $(this).attr("data-pdf");
+
+    if(pdf)
+    {
+        ag.openPDF(pdf);
     }
 }
