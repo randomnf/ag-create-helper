@@ -1,20 +1,21 @@
-# Agnitio Rainmaker create presentation helper
-Это полотнище кода призвано (частично) избавить divелопера от рутины при создании новой презентации для платформы Agnitio Rainmaker.
-## Установка
+# Agnitio create presentation helper
+The purpose of this mess of code is to make life of DIVelopers and creation of new presentation for Agnitio Rainmaker easier (at least particaly).
+## Installation
 ```bash
 git clone git://github.com/randomnf/ag-create-helper ag-create-helper
 cd ag-create-helper
 rm -rf .git
+npm i
 ```
-## Использование
-Структура презентации описывается в `json` файле(ах), по которому будут генерироваться файлы и папки для слайдов (по шаблонам), файл `presentation.json` и простое одноуровневое меню (пока только одноуровневое). Шаблоны слайдов лежат в папке `./slide-templates`, подстановка данных в шаблоны осуществляется с помощью плагина `gulp-file-include` (лучше не заглядывайте в шаблоны, выглядит дико, я предупредил).
-### Создание презентации с нуля
-Если презентация создается с нуля, нужно заполнить файл `slidesCreate.json` и запустить задачу `gulp create` в консоли.
-### Добавление новых слайдов в существующую презентацию
-Если в презентации уже присутствуют сверстанные слайды и нужно нагенерить n-ное количество новых файлов, нужно заполнить файл `slidesInsert.json` и запустить задачу `gulp insert` в консоли.
-### Описание структуры slidesCreate.json
-Данным файлом следует пользоваться в том случае, если презентация создается с нуля.
-Пример содержимого файла:
+## Usage
+Presentation structure is described in `json` file, then according to this description folders and slide templates, `presentation.json` file and simple single-level menu will be generated. Slide templates files are in `./slide-templates` folder. Data insertion into these templates is done via `gulp-file-include`.
+### Creating presentaion from scratch
+If presentation is creating from scratch, you should use `slidesCreate.json` file to describe presentation structure and perform `gulp create` task.
+### Adding new slides into ixisting presentation
+If presentation already contains some slides and you need to generate some new ones, you should use `slidesInsert.json` file to describe new presentation slides and and perorm `gulp insert` task.
+### Structure of slidesCreate.json
+You should use this file if you are creating new presentation from scratch.
+Content example:
 ```json
 {
     "commonConfig": {
@@ -29,60 +30,53 @@ rm -rf .git
 
     "sections": {
         "visit": {
-            "title": "Название раздела",
+            "title": "Section name",
             "slides": [
                 {
-                    "slideDesc": "Описание слайда для статистики"
+                    "slideDesc": "Slide description for stats"
                 },
-                {
-                    "content": {
-                        "tabs": 2
-                    },
-                    "slideDesc": "Описание слайда для статистики"
-                }
-            ]
-        },
-        "email": {
-            "title": "Название раздела №2",
-            "slides": [
                 {
                     "customID": "email",
                     "content": {
                         "popups": 3
                     },
-                    "slideDesc": "Описание слайда для статистики"
+                    "slideDesc": "Slide description for stats"
+                },
+                {
+                    "content": {
+                        "tabs": 2
+                    },
+                    "slideDesc": "Slide description for stats"
                 }
             ]
         }
     }
 }
 ```
-Из такого json-файла будут созданы следующие слайды:
+According to this structure next slides will be generated:
 - slide-005--productName
-- slide-010--productName (с двумя табами)
-- slide-email--productName (с тремя попапами)
+- slide-010--productName (with 2 tabs)
+- slide-email--productName (with 3 popups)
 
-И также будет создан шаблонный файл `index.html` со сгенерированным меню внутри.
+In `commonConfig` object some common presentation properties are described:
+- `slideNamePrefix` - slide name prefix, by default is `"slide-"`
+- `slideNamePostfix` - slide name postfix, by default is missing
+- `slideNumStart` - slide starting number, by default is `5`
+- `slideNumStep` - incrementing value in slide counting, by default is `5`
+- `slideNumLen` - symbol count for slide number, will be led by zeroes to fit number length; for example, number `20` with `slideNumLen = 4` will be transformed into `"0020"`
 
-В объекте `commonConfig` описывается общий для презентации конфиг:
-- `slideNamePrefix` - префикс для имени слайда, по умолчанию `"slide-"`
-- `slideNamePostfix` - постфикс для имени слайда, по умолчанию отсутствует
-- `slideNumStart` - начальный номер слайдов, по умолчанию `5`
-- `slideNumStep` - шаг, с которым увеличивается нумерация слайдов, по умолчанию `5`
-- `slideNumLen` - количество символов, которое отводится под номер слайда, по умолчанию `3`; номер слайда будет дополняться ведущими нулями до соответсвия количеству символов, указанному в этом свойстве. Например, номер слайда `20` при `slideNumLen = 4`, будет преобразован к виду `"0020"`.
-
-В объекте `sections` описываются все разделы презентации:
+In `sections` object all sections of the presentation are described:
 ```json
 "sectionName": {
-    "title": "Название раздела",
+    "title": "Human readable section name",
     "slides": []
 }
 ```
-- `sectionName` - служебное имя раздела, которое будет указано в `presentation.json`
-- `title` - человекочитаемое название раздела, которое также используется при генерации меню
-- `slides` - массив с объектами, которые описывают каждый слайд.
+- `sectionName` - service name of section, will be in `presentation.json`
+- `title` - human readable section name, which also be used in menu generation
+- `slides` - array with slide objects
 
-В объектах `slides` описываются слайды, принадлежащие разделу `section`, в который они вложены:
+In `slides` object slides that nested in respective section are described:
 ```json
 {
     "customID": "video",
@@ -90,24 +84,24 @@ rm -rf .git
         "popups": 2,
         "tabs": 3
     },
-    "slideDesc": "Описание для статистики"
+    "slideDesc": "Slide description for stats"
 }
 ```
-- `customID` - если указано, вместо номера слайда будет вставлено значение из этого поля
-- `content` - если указан, в этом объекте следует указать количество попапов `popups` и табов `tabs`, если таковые присутствуют на слайде
-- `slideDesc` - описание для статистики
+- `customID` - if used, this value will be inserted in slide name instead of ordered number
+- `content` - if used, you should set `popups` and/or `tabs` count
+- `slideDesc` - slide description for stats
 
-Также есть возможность вместо массива объектов с описаниями слайдов указать количество слайдов в разделе:
+Also you can set number of slides to be generated instead of detailed description of each slide:
 ```json
 "sectionName": {
-    "title": "Название раздела",
+    "title": "Human readable section name",
     "slides": 3
 }
 ```
-В таком случае будут созданы 3 слайда, в которых по умолчанию закинутся: по одному попапу и два таба. Описание слайда для статисики в `presentation.json` будет пустым.
-### Описание структуры slidesInsert.json
-Данным файлом следует пользоваться в том случае, если нужно добавить новые слайды в уже существующую презентацию.
+In this case 3 slides will be generated. Slide description for stats in these slide will be empty in `presentation.json`.
+### Structure of slidesInsert.json
+You should use this file when you need to add some new slides to existing presentation.
 
-Структура файла полностью аналогична файлу `slidesCreate.json`, за исключением того, что опускается свойство `generateMenu` в объекте `commonConfig`.
+Structure of this file is fully identical to `slidesCreate.json`, but there is one diference - `generateMenu` property in `commonConfig` object will be ignored.
 
-После создания слайдов через команду `gulp insert`, данные для `presentation.json` по этим слайдам будут лежать в папке `copy-paste-torture`. Да, нужно будет зайти в файлик и мучительно копировать все руками =/
+After performing `gulp insert` task data for `presentation.json` for new slides will be in `./copy-paste-torture` folder. And yes, you will need to go there and painfully copy-paste all data manually =/
