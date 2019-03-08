@@ -75,12 +75,7 @@ function createSlidesFromTemplates(jsonFile)
         curSlideNum = slideNumStart,
         curSlideNumString;
     
-    if( !fs.existsSync("build/slides") )
-    {
-        fs.mkdirSync("build/slides");
-
-        console.log("'build/slides' folder has been created.");
-    }
+    touchFolder("./build/slides");
     
     for(var section in sections)
     {
@@ -97,7 +92,7 @@ function createSlidesFromTemplates(jsonFile)
             var tmpObj = {};
             
             tmpObj.name = section;
-            tmpObj.title = sectionTitle ? sectionTitle : "default title";
+            tmpObj.title = sectionTitle ? sectionTitle : "title placeholder";
 
             menuAr.push(tmpObj);
         }
@@ -170,6 +165,20 @@ function createSlidesFromTemplates(jsonFile)
     createPresentationJSON();
 }
 
+function touchFolder(folderToCheck)
+{
+    if( fs.existsSync(folderToCheck) )
+    {
+        return;
+    }
+    else
+    {
+        fs.mkdirSync(folderToCheck);
+
+        console.log(`${folderToCheck} has been created.`)
+    }
+}
+
 function getSlideNum(num, len)
 {
     var result = "",
@@ -196,13 +205,13 @@ function getSlideNum(num, len)
 function createSlideFiles(slide, createdSlides)
 {
     var srcGlob = {
-            "html": "slide-templates/html/slide-template.html",
-            "css": "slide-templates/css/slide-template.css",
-            "js": "slide-templates/js/slide-template.js"
+            "html": "./slide-templates/html/slide-template.html",
+            "css": "./slide-templates/css/slide-template.css",
+            "js": "./slide-templates/js/slide-template.js"
         },
         slideID = slide.id,
         slideNum = slide.useCustomID ? slide.id : slide.num,
-        folderName = "build/slides/" + slideID,
+        folderName = "./build/slides/" + slideID,
         content = slide.content,
 
         popups = 0,
@@ -215,11 +224,6 @@ function createSlideFiles(slide, createdSlides)
             popups = (typeof content.popups === "number") ? content.popups : 0,
             tabs = (typeof content.tabs === "number") ? content.tabs : 0;
         }
-    }
-    else
-    {
-        popups = 1;
-        tabs = 2;
     }
 
     if( !fs.existsSync(folderName) )
@@ -255,7 +259,7 @@ var presJSONtmp = {
     structures: {},
     storyboard: [],
     storyboards: {},
-    modules: JSON.parse( fs.readFileSync("slide-templates/json/modules.json", "utf-8") ),
+    modules: JSON.parse( fs.readFileSync("./slide-templates/json/modules.json", "utf-8") ),
 };
 
 function saveSlideData(slide, section)
@@ -305,18 +309,20 @@ function saveSlideData(slide, section)
 
 function createPresentationJSON()
 {
-    var outFile = "build/presentation.json";
+    var outFile = "./build/presentation.json";
     
     if(insertMode)
     {
-        outFile = "copy-paste-torture/presentation.json";
+        touchFolder("./copy-paste-torture");
+
+        outFile = "./copy-paste-torture/presentation.json";
 
         delete presJSONtmp.modules;
     }
 
     if( !insertMode && fs.existsSync(outFile) )
     {
-        console.log(outFile + " already exists. Data will be written to " + (outFile = "build/presentation_new.json"));
+        console.log(outFile + " already exists. Data will be written to " + (outFile = "./build/presentation_new.json"));
     }
 
     fs.writeFile(outFile, JSON.stringify(presJSONtmp, null, 4), function(err) {
@@ -347,9 +353,11 @@ function gulpGenerateMenu(menu)
 {
     var destFileName = "index.html";
 
-    if( fs.existsSync("build/index.html") )
+    if( fs.existsSync("./build/index.html") )
     {
-        destFileName = "copy-paste-torture/generatedMenu.html";
+        touchFolder("./copy-paste-torture");
+
+        destFileName = "./copy-paste-torture/generatedMenu.html";
 
         console.log("index.html already exists. Generated menu will be written to " + destFileName);
     }
@@ -400,7 +408,7 @@ gulp.task('browserSync', function () {
     browserSync.init({
         watch: true,
         server: {
-            baseDir: "./",
+            baseDir: "./build/",
             index: "index.html"
         }
     });
@@ -418,7 +426,7 @@ gulp.task("thumbs-create", function() {
     {
         var slideID = origImages[i].split(".")[0],
             srcGlob = origFolder + origImages[i],
-            dest = "build/slides/" + slideID;
+            dest = "./build/slides/" + slideID;
 
         gulp.src(srcGlob)
             // .pipe( imageMagickHere )

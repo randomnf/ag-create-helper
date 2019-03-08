@@ -9,10 +9,10 @@ app.register("@@slidename", function() {
 
         },
         onEnter: function(el) {
-            enterEventHanlder(el);
+            enterEventHandler(el);
         },
         onExit: function(el) {
-            exitEventHanlder(el);
+            exitEventHandler(el);
         }
     }
 

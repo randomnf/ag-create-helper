@@ -1,7 +1,7 @@
 {
     "commonConfig": {
         "slideNamePrefix": "slide-",
-        "slideNamePostfix": "--ocrevus",
+        "slideNamePostfix": "--product",
         "slideNumStart": 30,
         "slideNumStep": 5,
         "slideNumLen": 3

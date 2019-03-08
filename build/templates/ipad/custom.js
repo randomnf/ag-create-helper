@@ -2,7 +2,7 @@ $(function() {
     // some presentation-specific fns here
 });
 
-function enterEventHanlder(el)
+function enterEventHandler(el)
 {
     menuHighlightHandler(el.id);
 
@@ -15,10 +15,10 @@ function enterEventHanlder(el)
 
     var $pdfLinks = $el.find(".pdf-link");
 
-    $pdfLinks.on("tap", pdfOpenHanlder);
+    $pdfLinks.on("tap", pdfOpenHandler);
 }
 
-function exitEventHanlder(el)
+function exitEventHandler(el)
 {
     var $el = $(el),
         $popupBtns = $el.find(".popup-btn"),
@@ -29,7 +29,7 @@ function exitEventHanlder(el)
 
     var $pdfLinks = $el.find(".pdf-link");
 
-    $pdfLinks.off("tap", pdfOpenHanlder);
+    $pdfLinks.off("tap", pdfOpenHandler);
 
     closeAllPopups($el);
 }
@@ -138,7 +138,7 @@ function menuHighlightHandler(slideID)
     }
 }
 
-function pdfOpenHanlder(e)
+function pdfOpenHandler(e)
 {
     if(e)
     {
